@@ -1,14 +1,18 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-from core.web_interactions import login_to_platform
-
 import sys
 import os
 
-# Agregar la carpeta raíz a la ruta
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# Agregar la carpeta 'core' al PYTHONPATH usando una ruta relativa
+base_dir = os.path.dirname(os.path.abspath(__file__))  # Obtener la ruta del archivo actual
+core_dir = os.path.join(base_dir, '..', 'core')  # Subir un nivel y agregar 'core'
+sys.path.append(core_dir)
 
+
+
+# Importar la función desde el módulo 'core.web_interactions'
 from core.web_interactions import login_to_platform
+
 
 class MainWindow(tk.Tk):
     def __init__(self):
@@ -35,9 +39,9 @@ class MainWindow(tk.Tk):
 
     def browse_file(self):
         file_path = filedialog.askopenfilename(
-    title="Seleccionar archivo Excel",
-    filetypes=(("Archivos Excel", "*.xlsx"), ("Archivos Excel Antiguos", "*.xls"))
-)
+            title="Seleccionar archivo Excel",
+            filetypes=(("Archivos Excel", "*.xlsx"), ("Archivos Excel Antiguos", "*.xls"))
+        )
 
         if file_path:
             self.file_label.config(text=f"Archivo seleccionado: {file_path}", foreground="green")
